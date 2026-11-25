@@ -1,0 +1,29 @@
+[
+  {
+    "id": "2026-09-14_14:00",
+    "data": "2026-09-14",
+    "dia": "Segunda-feira",
+    "hora": "14:00",
+    "paciente": "Maria Silva",
+    "celular": "(11) 91234-5678",
+    "status": "Agendado"
+  },
+  {
+    "id": "2026-09-15_11:00",
+    "data": "2026-09-15",
+    "dia": "Terça-feira",
+    "hora": "11:00",
+    "paciente": "Carlos Souza",
+    "celular": "(21) 99876-5432",
+    "status": "Agendado"
+  },
+  {
+    "id": "2026-09-17_09:00",
+    "data": "2026-09-17",
+    "dia": "Quinta-feira",
+    "hora": "09:00",
+    "paciente": "Ana Paula",
+    "celular": "(31) 98765-4321",
+    "status": "Agendado"
+  }
+]

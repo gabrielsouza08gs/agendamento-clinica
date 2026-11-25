@@ -1,0 +1,419 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, Arial, sans-serif;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+  background: #f5f7fa;
+  color: #1f2933;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 0 1rem;
+}
+
+header h1 {
+  margin-bottom: 0.25rem;
+  color: #0f6d5c;
+}
+
+/* Indicador de etapas (1. Dia -> 2. Horário -> 3. Dados) */
+#indicador-etapas {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0 0 2rem;
+}
+
+#indicador-etapas li {
+  flex: 1;
+  text-align: center;
+  padding: 0.6rem 0.4rem;
+  border-radius: 6px;
+  background: #e4e7eb;
+  color: #52606d;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+#indicador-etapas li.etapa-atual {
+  background: #0f6d5c;
+  color: white;
+}
+
+#indicador-etapas li.etapa-concluida {
+  background: #d3f0e8;
+  color: #0f6d5c;
+}
+
+section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  margin-bottom: 1.5rem;
+}
+
+section h2 {
+  margin-top: 0;
+  color: #0f6d5c;
+}
+
+.dica {
+  color: #52606d;
+  margin-top: -0.5rem;
+}
+
+.botao-voltar {
+  background: none;
+  border: none;
+  color: #0f6d5c;
+  font-weight: 600;
+  padding: 0;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.botao-voltar:hover {
+  text-decoration: underline;
+}
+
+/* Grade de cartões — usada tanto para os dias quanto para os horários */
+.grade-cartoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.cartao {
+  cursor: pointer;
+  border: 2px solid #e4e7eb;
+  border-radius: 8px;
+  background: white;
+  padding: 1rem 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  text-align: center;
+}
+
+.cartao:hover:not(:disabled) {
+  border-color: #0f6d5c;
+  background: #f0f9f6;
+}
+
+.cartao:disabled {
+  color: #cbd2d9;
+  border-color: #e4e7eb;
+  cursor: not-allowed;
+}
+
+.cartao-dia {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cartao-titulo {
+  font-weight: 700;
+}
+
+.cartao-info {
+  font-size: 0.8rem;
+  color: #52606d;
+}
+
+.cartao-horario {
+  font-weight: 600;
+}
+
+#secao-agendamento label {
+  display: block;
+  margin: 0.75rem 0 0.25rem;
+  font-weight: 600;
+}
+
+#secao-agendamento input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+#resumo-horario-escolhido {
+  background: #f0f9f6;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: #0f6d5c;
+}
+
+.botoes-formulario {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.botoes-formulario button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.95rem;
+  background: #0f6d5c;
+  color: white;
+  width: 100%;
+}
+
+.botoes-formulario button:hover {
+  background: #0c5a4c;
+}
+
+#mensagem-status,
+#mensagem-sucesso {
+  margin-top: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+#mensagem-status.sucesso,
+#mensagem-sucesso {
+  color: #0f6d5c;
+}
+
+/* Resumo da consulta marcada, no topo da página inicial */
+#mensagem-sucesso {
+  background: #d3f0e8;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+#mensagem-status.erro {
+  color: #c0392b;
+}
+
+footer {
+  text-align: center;
+  color: #52606d;
+  font-size: 0.85rem;
+  margin-top: 2rem;
+}
+
+/* ===================== Navegação principal ===================== */
+#nav-principal {
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  padding: 0 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-botao {
+  flex: 1;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid #e4e7eb;
+  background: white;
+  color: #52606d;
+  font-weight: 600;
+  padding: 0.65rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.nav-botao:hover {
+  border-color: #0f6d5c;
+}
+
+.nav-botao.ativo {
+  background: #0f6d5c;
+  border-color: #0f6d5c;
+  color: white;
+}
+
+/* ===================== Seletor de semana ===================== */
+.seletor-semana {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.rotulo-calendario {
+  font-weight: 600;
+  color: #1f2933;
+}
+
+.seletor-semana input[type="date"] {
+  padding: 0.5rem;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.botao-seta {
+  cursor: pointer;
+  border: 1px solid #cbd2d9;
+  background: white;
+  color: #0f6d5c;
+  border-radius: 6px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.9rem;
+}
+
+.botao-seta:hover {
+  background: #f0f9f6;
+  border-color: #0f6d5c;
+}
+
+.texto-semana {
+  color: #0f6d5c;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0 0 1rem;
+}
+
+.cartao-data {
+  font-size: 0.8rem;
+  color: #52606d;
+}
+
+/* ===================== Meus Agendamentos ===================== */
+.cartao-agendamento {
+  background: white;
+  border: 2px solid #e4e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.agendamento-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.agendamento-info strong {
+  color: #0f6d5c;
+  font-size: 1.05rem;
+}
+
+.agendamento-info span {
+  font-size: 0.9rem;
+  color: #1f2933;
+}
+
+.agendamento-acoes {
+  flex-shrink: 0;
+}
+
+.botao-cancelar {
+  cursor: pointer;
+  border: 1px solid #c0392b;
+  background: white;
+  color: #c0392b;
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.botao-cancelar:hover {
+  background: #fdecea;
+}
+
+.confirmacao-cancelamento {
+  background: #fdecea;
+  border-radius: 6px;
+  padding: 0.75rem;
+  max-width: 220px;
+}
+
+.confirmacao-cancelamento p {
+  margin: 0 0 0.6rem;
+  font-size: 0.85rem;
+  color: #7b3229;
+}
+
+.confirmacao-botoes {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.confirmacao-botoes button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.botao-manter {
+  background: #e4e7eb;
+  color: #1f2933;
+}
+
+.botao-confirmar-cancelamento {
+  background: #c0392b;
+  color: white;
+}
+
+/* Responsivo: em telas pequenas, nav e seletor de semana quebram bem */
+@media (max-width: 480px) {
+  #nav-principal {
+    flex-direction: column;
+  }
+
+  .seletor-semana {
+    justify-content: center;
+  }
+
+  .cartao-agendamento {
+    flex-direction: column;
+  }
+}
+
+/* ===================== Acessibilidade ===================== */
+/* Link "pular para o conteúdo": invisível até receber foco pelo teclado */
+.pular-conteudo {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: #0f6d5c;
+  color: white;
+  padding: 0.6rem 1rem;
+  z-index: 100;
+  border-radius: 0 0 8px 0;
+}
+.pular-conteudo:focus {
+  left: 0;
+}
+
+/* Contorno bem visível para quem navega com o teclado */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+h2:focus-visible,
+#mensagem-sucesso:focus-visible,
+main:focus-visible {
+  outline: 3px solid #f2a900;
+  outline-offset: 2px;
+}

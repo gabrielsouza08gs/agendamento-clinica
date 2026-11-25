@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{HEAD}}
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-vista="{{VISTA}}">
+
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo</a>
+
+  <header>
+    <h1>{{NOME}}</h1>
+    <p>Agende sua consulta odontológica online</p>
+  </header>
+
+  <!-- Navegação principal: duas páginas reais, cada uma com seu endereço, título e descrição -->
+  <nav id="nav-principal" aria-label="Navegação principal">
+    <a class="nav-botao{{ATIVO_AGENDAR}}" id="nav-agendar" href="/"{{CURRENT_AGENDAR}}>
+      <span aria-hidden="true">📅</span> Agendar consulta
+    </a>
+    <a class="nav-botao{{ATIVO_MEUS}}" id="nav-meus-agendamentos" href="/meus-agendamentos"{{CURRENT_MEUS}}>
+      <span aria-hidden="true">📋</span> Meus Agendamentos
+    </a>
+  </nav>
+
+  <main id="conteudo" tabindex="-1">
+
+    <!-- ===================== VISTA: AGENDAR CONSULTA ===================== -->
+    <div id="vista-agendar"{{HIDDEN_AGENDAR}}>
+
+      <!-- Resumo da consulta recém-marcada (preenchido por script.js) -->
+      <p id="mensagem-sucesso" class="sucesso" role="status" aria-live="polite" tabindex="-1" hidden></p>
+
+      <ol id="indicador-etapas" aria-label="Etapas do agendamento">
+        <li id="passo-1" class="etapa-atual" aria-current="step">1. Escolha o dia</li>
+        <li id="passo-2">2. Escolha o horário</li>
+        <li id="passo-3">3. Seus dados</li>
+      </ol>
+
+      <!-- ETAPA 1: escolha da semana + escolha do dia -->
+      <section id="secao-dias" aria-labelledby="titulo-dias">
+        <h2 id="titulo-dias" tabindex="-1">Escolha o dia</h2>
+        <p class="dica">Atendemos de segunda a sexta-feira.</p>
+
+        <!-- Seletor de semana: permite navegar para semanas futuras -->
+        <div class="seletor-semana">
+          <button type="button" id="botao-semana-anterior" class="botao-seta" aria-label="Semana anterior">◀</button>
+
+          <label for="campo-data" class="rotulo-calendario"><span aria-hidden="true">📅</span> Escolher semana</label>
+          <input type="date" id="campo-data">
+
+          <button type="button" id="botao-semana-seguinte" class="botao-seta" aria-label="Semana seguinte">▶</button>
+        </div>
+        <p id="texto-semana-selecionada" class="texto-semana"></p>
+
+        <div id="grade-dias" class="grade-cartoes">
+          <!-- Preenchido dinamicamente via JavaScript (fetch em /api/horarios) -->
+        </div>
+      </section>
+
+      <!-- ETAPA 2: escolha do horário dentro do dia selecionado -->
+      <section id="secao-horarios" aria-labelledby="titulo-horarios" hidden>
+        <button type="button" id="botao-voltar-dias" class="botao-voltar">← Escolher outro dia</button>
+        <h2 id="titulo-horarios" tabindex="-1">Horários de <span id="dia-selecionado-texto"></span></h2>
+
+        <div id="grade-horarios" class="grade-cartoes">
+          <!-- Preenchido dinamicamente via JavaScript -->
+        </div>
+      </section>
+
+      <!-- ETAPA 3: dados do paciente -->
+      <section id="secao-agendamento" aria-labelledby="titulo-agendamento" hidden>
+        <button type="button" id="botao-voltar-horarios" class="botao-voltar">← Escolher outro horário</button>
+        <h2 id="titulo-agendamento" tabindex="-1">Confirmar agendamento</h2>
+
+        <form id="form-agendamento" aria-labelledby="titulo-agendamento">
+          <p id="resumo-horario-escolhido"></p>
+
+          <label for="campo-nome">Nome completo</label>
+          <input type="text" id="campo-nome" name="paciente" required
+                 autocomplete="name" maxlength="100" placeholder="Digite seu nome">
+
+          <label for="campo-celular">Número de celular</label>
+          <input type="tel" id="campo-celular" name="celular" required
+                 autocomplete="tel" inputmode="tel" placeholder="(11) 91234-5678">
+
+          <div class="botoes-formulario">
+            <button type="submit">Confirmar agendamento</button>
+          </div>
+        </form>
+      </section>
+
+    </div>
+
+    <!-- ===================== VISTA: MEUS AGENDAMENTOS ===================== -->
+    <div id="vista-meus-agendamentos"{{HIDDEN_MEUS}}>
+      <section aria-labelledby="titulo-meus-agendamentos">
+        <h2 id="titulo-meus-agendamentos"><span aria-hidden="true">📋</span> Meus Agendamentos</h2>
+        <p class="dica">Consultas marcadas neste navegador.</p>
+
+        <div id="lista-agendamentos">
+          <!-- Preenchido dinamicamente via JavaScript (fetch em /api/meus-agendamentos) -->
+        </div>
+      </section>
+    </div>
+
+    <p id="mensagem-status" role="status" aria-live="polite"></p>
+  </main>
+
+  <footer>
+    <p>Trabalho de Programação para Internet — Checkpoint Final</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
